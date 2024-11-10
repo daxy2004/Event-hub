@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - EventHub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a2a2a;
+            --secondary: #1a1a1a;
+            --accent: #7f5af0;
+            --text: #fffffe;
+            --text-secondary: #94a1b2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+        }
+
+        nav {
+            background-color: var(--primary);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--accent);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .event-details {
+            text-align: center;
+            background-color: var(--primary);
+            padding: 3rem 1rem;
+            border-radius: 8px;
+        }
+
+        .event-details h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-details p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .register-btn {
+            background-color: var(--accent);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">EventHub</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="events.html">Events</a>
+                <a href="profile.html">Profile</a>
+                <a href="admin.html">Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="event-details">
+            <div class="event-image">
+                <img src="shutterstock_2232908089-scaled.jpg" alt="Event Image">
+            </div>
+            <h1>Tech Conference 2024</h1>
+            <p><strong>Description:</strong> Annual technology conference featuring the latest innovations.</p>
+            <p><strong>Date:</strong> 2024-12-15</p>
+            <p><strong>Location:</strong> Convention Center</p>
+            <a href="register.html" class="register-btn">Register Now</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 EventHub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

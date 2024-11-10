@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Event</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a2a2a;
+            --secondary: #1a1a1a;
+            --accent: #7f5af0;
+            --text: #fffffe;
+            --text-secondary: #94a1b2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            padding: 2rem;
+        }
+
+        .form-container {
+            background-color: var(--primary);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-container input, .form-container select, .form-container button {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            background-color: var(--secondary);
+            color: var(--text);
+        }
+
+        .form-container input:focus, .form-container select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-container button {
+            background-color: var(--accent);
+            color: var(--text);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #6f4cc1;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Register for Event</h1>
+
+        <!-- Registration Form -->
+        <form id="registrationForm">
+            <label for="eventSelect">Choose Event:</label>
+            <select id="eventSelect" name="event" required>
+                <option value="" disabled selected>Select an event</option>
+                <option value="Tech Conference 2024">Tech Conference 2024</option>
+                <option value="Music Festival">Music Festival</option>
+                <option value="Food & Wine Expo">Food & Wine Expo</option>
+            </select>
+
+            <label for="userName">Full Name:</label>
+            <input type="text" id="userName" name="name" placeholder="Enter your full name" required>
+
+            <label for="userEmail">Email Address:</label>
+            <input type="email" id="userEmail" name="email" placeholder="Enter your email" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <a href="home.html" class="back-link">Back to Home</a>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get the form values
+            const eventSelect = document.getElementById('eventSelect').value;
+            const userName = document.getElementById('userName').value;
+            const userEmail = document.getElementById('userEmail').value;
+
+            // Simple validation (could be expanded)
+            if (!eventSelect || !userName || !userEmail) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Registration Success Message (You can replace this with backend functionality)
+            alert(`Thank you for registering, ${userName}! You have successfully registered for the ${eventSelect} event.`);
+
+            // Optionally reset the form
+            document.getElementById('registrationForm').reset();
+        });
+    </script>
+
+</body>
+</html>

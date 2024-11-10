@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Event Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a2a2a;
+            --secondary: #1a1a1a;
+            --accent: #7f5af0;
+            --text: #fffffe;
+            --text-secondary: #94a1b2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+        }
+
+        nav {
+            background-color: var(--primary);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--accent);
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: var(--primary);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-info h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info p {
+            color: var(--text-secondary);
+        }
+
+        .profile-section {
+            margin-bottom: 2rem;
+        }
+
+        .profile-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .profile-details span {
+            color: var(--text-secondary);
+        }
+
+        .input-field {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            background-color: #333;
+            color: var(--text);
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: var(--primary);
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">EventHub</div>
+            <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="profile.html">Profile</a>
+                <a href="admin.html">Admin</a>
+                <a href="login.html">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="profile-container">
+            <div class="profile-header">
+                <img src="C:\Users\dhruv\OneDrive\Desktop\proj\WhatsApp Image 2023-08-20 at 21.20.37.png" alt="Profile Picture">
+                <div class="profile-info">
+                    <h2 id="user-name">Dhruv</h2>
+                    <p id="user-bio">Enthusiastic event-goer, tech lover, and foodie</p>
+                </div>
+            </div>
+
+            <!-- Editable Profile Section -->
+            <div class="profile-section">
+                <h3>Contact Information</h3>
+                <form id="profile-form">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" class="input-field" value="johndoe@example.com">
+
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" class="input-field" value="(123) 456-7890">
+
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" class="input-field" value="New York, NY">
+                </form>
+            </div>
+
+            <div class="profile-section">
+                <h3>Past Events Attended</h3>
+                <ul class="profile-details">
+                    <li><i class="fas fa-check"></i> Tech Conference 2023</li>
+                    <li><i class="fas fa-check"></i> Food & Wine Expo 2023</li>
+                    <li><i class="fas fa-check"></i> Music Festival 2022</li>
+                </ul>
+            </div>
+
+            <div class="profile-section">
+                <h3>Upcoming Events</h3>
+                <ul class="profile-details">
+                    <li><i class="fas fa-calendar-alt"></i> Tech Conference 2024</li>
+                    <li><i class="fas fa-calendar-alt"></i> Art & Design Expo 2024</li>
+                </ul>
+            </div>
+
+            <button class="btn" onclick="toggleEditMode()">Save Changes</button>
+
+            <!-- Display Updated Details -->
+            <div id="updated-details" style="margin-top: 2rem; color: var(--accent);">
+                <h3>Updated Details:</h3>
+                <p><strong>Email:</strong> <span id="display-email">johndoe@example.com</span></p>
+                <p><strong>Phone:</strong> <span id="display-phone">(123) 456-7890</span></p>
+                <p><strong>Location:</strong> <span id="display-location">New York, NY</span></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 EventHub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let isEditMode = false;
+
+        function toggleEditMode() {
+            const form = document.getElementById("profile-form");
+
+            if (isEditMode) {
+                // Save changes
+                const email = document.getElementById("email").value;
+                const phone = document.getElementById("phone").value;
+                const location = document.getElementById("location").value;
+
+                // Display updated details below
+                document.getElementById("display-email").textContent = email;
+                document.getElementById("display-phone").textContent = phone;
+                document.getElementById("display-location").textContent = location;
+
+                alert("Changes saved successfully!");
+            } else {
+                // Enable editing
+                form.querySelectorAll('input').forEach(input => input.removeAttribute('readonly'));
+            }
+
+            isEditMode = !isEditMode;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Event Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2a2a2a;
+            --secondary: #1a1a1a;
+            --accent: #7f5af0;
+            --text: #fffffe;
+            --text-secondary: #94a1b2;
+            --success: #2cb67d;
+            --warning: #ff8906;
+            --danger: #ff4545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--primary);
+            padding: 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            background-color: var(--accent);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+        }
+
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--primary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .events-table th,
+        .events-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .events-table th {
+            background-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .status-active {
+            background-color: var(--success);
+        }
+
+        .status-draft {
+            background-color: var(--warning);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--primary);
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--accent);
+            background-color: var(--secondary);
+            color: var(--text);
+            border-radius: 4px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(127, 90, 240, 0.2);
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .stat-card p {
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-calendar-alt"></i>
+            EventHub Admin
+        </div>
+        <ul class="nav-menu">
+            <li><a href="home.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> Events</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
+            <li><a href="#"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
+            <li><a href="#"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <h1>Event Management</h1>
+            <button class="btn" onclick="showAddEventModal()">
+                <i class="fas fa-plus"></i> Add New Event
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>12</h3>
+                <p>Active Events</p>
+            </div>
+            <div class="stat-card">
+                <h3>1,234</h3>
+                <p>Total Registrations</p>
+            </div>
+            <div class="stat-card">
+                <h3>$45.2k</h3>
+                <p>Revenue</p>
+            </div>
+            <div class="stat-card">
+                <h3>89%</h3>
+                <p>Satisfaction Rate</p>
+            </div>
+        </div>
+
+        <table class="events-table">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Capacity</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="eventsTableBody">
+                <!-- Events will be loaded here -->
+            </tbody>
+        </table>
+    </main>
+
+    <div class="modal" id="addEventModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddEventModal()">&times;</span>
+            <h2>Add New Event</h2>
+            <form id="addEventForm" onsubmit="handleAddEvent(event)">
+                <div class="form-group">
+                    <label for="eventName">Event Name</label>
+                    <input type="text" id="eventName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Date</label>
+                    <input type="datetime-local" id="eventDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventLocation">Location</label>
+                    <input type="text" id="eventLocation" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventCapacity">Capacity</label>
+                    <input type="number" id="eventCapacity" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Description</label>
+                    <textarea id="eventDescription" class="form-control" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="eventStatus">Status</label>
+                    <select id="eventStatus" class="form-control" required>
+                        <option value="active">Active</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Create Event</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample events data
+        let events = [
+            {
+                id: 1,
+                name: "Tech Conference 2024",
+                date: "2024-12-15T09:00",
+                location: "Convention Center",
+                capacity: 500,
+                status: "active"
+            },
+            {
+                id: 2,
+                name: "Music Festival",
+                date: "2024-11-20T14:00",
+                location: "City Park",
+                capacity: 2000,
+                status: "draft"
+            }
+        ];
+
+        // Load events into table
+        function loadEvents() {
+            const tableBody = document.getElementById('eventsTableBody');
+            tableBody.innerHTML = '';
+
+            events.forEach(event => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${event.name}</td>
+                    <td>${formatDate(event.date)}</td>
+                    <td>${event.location}</td>
+                    <td>${event.capacity}</td>
+                    <td><span class="status-badge status-${event.status}">${event.status}</span></td>
+                    <td class="action-buttons">
+                        <button class="btn btn-warning" onclick="editEvent(${event.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteEvent(${event.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleString();
+        }
+
+        // Show/hide modal
+        function showAddEventModal() {
+            document.getElementById('addEventModal').style.display = 'flex';
+        }
+
+        function closeAddEventModal() {
+            document.getElementById('addEventModal').style.display = 'none';
+        }
+
+        // Handle adding new event
+        function handleAddEvent(event) {
+            event.preventDefault();
+            
+            const newEvent = {
+                id: events.length + 1,
+                name: document.getElementById('eventName').value,
+                date: document.getElementById('eventDate').value,
+                location: document.getElementById('eventLocation').value,
+                capacity: document.getElementById('eventCapacity').value,
+                status: document.getElementById('eventStatus').value
+            };
+
+            events.push(newEvent);
+            loadEvents();
+            closeAddEventModal();
+            event.target.reset();
+        }
+
+        // Edit event
+        function editEvent(id) {
+            const event = events.find(e => e.id === id);
+            alert(`Edit event: ${event.name}`);
+            // Implement edit functionality
+        }
+
+        // Delete event
+        function deleteEvent(id) {
+            if (confirm('Are you sure you want to delete this event?')) {
+                events = events.filter(e => e.id !== id);
+                loadEvents();
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('addEventModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Load events when page loads
+        document.addEventListener('DOMContentLoaded', loadEvents);
+    </script>
+</body>
+</html>
